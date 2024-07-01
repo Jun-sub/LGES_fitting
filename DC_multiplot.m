@@ -8,27 +8,30 @@ File_2 = dir(fullfile(Folder_path_2, '*.txt'));
 figure;
 hold on;
 
-for i = 2:4:length(File_1);
+for i = 1:length(File_1);
+    % sample 1 플랏
     file_name = File_1(i).name;
     data_path = fullfile(Folder_path_1, file_name);
     data_e_1 = readmatrix(data_path);
 
-    time_1 = data_e_1 (:,1);
-    current_1 = data_e_1 (:,3);
     
+    time_1 = data_e_1 (:,1);
+    current_1 = data_e_1 (:,5); %full = 3 , anode = 4, cathode = 5
+    
+    % sample 2 플랏
     file_name = File_2(i).name;
     data_path = fullfile(Folder_path_2, file_name);
     data_e_2 = readmatrix(data_path);
 
     time_2 = data_e_2 (:,1);
-    current_2 = data_e_2 (:,3);
+    current_2 = data_e_2 (:,5); %full = 3 , anode = 4, cathode = 5
 
     plot (time_1,current_1,DisplayName = ['Sample 1 soc', num2str((i-1)*10) '~' num2str((i)*10)]);
     plot (time_2,current_2,DisplayName = ['Sample 2 soc', num2str((i-1)*10) '~' num2str((i)*10)]);
     title ('DC graph');
     grid on;
     xlabel ('time/s');
-    ylabel ('Fullcell/V');
+    ylabel ('Cathodecell/V'); %셀 별 맞게 변경
     legend(Location = "best");
 end
 
